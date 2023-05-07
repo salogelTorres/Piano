@@ -5,58 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-
-        .keys {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: flex-start;
-            margin: 0px;
-        }
-
-        .white-key {
-            display: inline-block;
-            width: 30px;
-            height: 120px;
-            border: 1px solid black;
-            background-color: white;
-            margin: 0px;
-        }
-
-        .black-key {
-            display: inline-block;
-            position: relative;
-            width: 20px;
-            height: 80px;
-            border: 1px solid black;
-            background-color: black;
-            margin: 0px -11px;
-            z-index: 1;
-        }
-
-        /* .black-key:before {
-            content: "";
-            display: block;
-            position: absolute;
-            top: -40px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: black;
-            z-index: -1;
-        } */
-
-        .key.active {
-            background-color: #eee;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/css.css">
     <title>Piano Web</title>
 </head>
 
@@ -160,39 +109,7 @@
 
 
     </div>
-    <script>
-        navigator.requestMIDIAccess().then(function (midiAccess) {
-            var inputs = midiAccess.inputs.values();
-            console.log(inputs)
-            for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
-                input.value.onmidimessage = function (event) {
-                    if (event.data[0] === 144) { // Note on message
-                        var note = event.data[1];
-                        var velocity = event.data[2];
-                        if (velocity != 0) {
-                            let color = (1 - (velocity / 127)) * 255
-                            console.log(color)
-                            document.getElementById(note).style.backgroundColor = `rgb(255,${color},${color})`
-
-                        }
-                        else {
-                            if (document.getElementById(note).className == "black-key")
-                                document.getElementById(note).style.backgroundColor = 'black'
-                            else
-                                document.getElementById(note).style.backgroundColor = 'white'
-
-                        }
-
-                        console.log("Note " + note + " on, velocity " + velocity);
-                    } else if (event.data[0] === 128) { // Note off message
-                        var note = event.data[1];
-                        var velocity = event.data[2];
-                        console.log("Note " + note + " off, velocity " + velocity);
-                    }
-                }
-            }
-        });
-    </script>
+    <script src="./js/js.js"></script>
 </body>
 
 </html>
