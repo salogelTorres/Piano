@@ -1,6 +1,6 @@
 export class Synth {
   #context = null;
-  #oscillators = {}
+  #oscillators = []
 
   constructor() {
     (this.#context = new AudioContext()), (this.#oscillators = {});
@@ -25,10 +25,10 @@ export class Synth {
   }
 
   stopAllNotes() {
-    this.#oscillators.forEach(frequency => {
+    for (const property in this.#oscillators) {
+      let frequency = this.#oscillators[property];
       frequency.stop(this.#context.currentTime);
       frequency.disconnect();
-      console.log("Stop")
-    });
+    }
   }
 }

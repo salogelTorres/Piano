@@ -41,6 +41,14 @@ function pressTheKey(keyNumber, velocity) {
     }
 }
 
+function cleanAllKeys() {
+    let keys = document.querySelectorAll(".keys > div");
+    keys.forEach(key => {
+        if (key.className == "black-key") key.style.backgroundColor = "black";
+        else key.style.backgroundColor = "white";
+    })
+}
+
 function listenKeyboardClick() {
     document.querySelector(".keys").addEventListener("mousedown", function (e) {
         if (e.target.id) {
@@ -49,6 +57,8 @@ function listenKeyboardClick() {
         }
     });
     document.querySelector(".keys").addEventListener("mouseup", function (e) {
+        sound.stopAllNotes();
+        cleanAllKeys();
         if (e.target.id) {
             let note = e.target.id;
             pressTheKey(note, 0);
