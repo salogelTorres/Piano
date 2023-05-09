@@ -23,4 +23,12 @@ export class Synth {
     this.#oscillators[frequency].stop(this.#context.currentTime);
     this.#oscillators[frequency].disconnect();
   }
+
+  stopAllNotes() {
+    this.#oscillators.forEach(frequency => {
+      frequency.stop(this.#context.currentTime);
+      frequency.disconnect();
+      console.log("Stop")
+    });
+  }
 }
