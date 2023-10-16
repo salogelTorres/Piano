@@ -50,13 +50,13 @@ function cleanAllKeys() {
 }
 
 function listenKeyboardClick() {
-    document.querySelector(".keys").addEventListener("mousedown", function (e) {
+    document.querySelector(".keys").addEventListener("mousedown" || "touchstart", function (e) {
         if (e.target.id) {
             let note = e.target.id;
             pressTheKey(note, 50);
         }
     });
-    document.querySelector(".keys").addEventListener("mouseup", function (e) {
+    document.querySelector(".keys").addEventListener("mouseup" || "touchend", function (e) {
         sound.stopAllNotes();
         cleanAllKeys();
         if (e.target.id) {
