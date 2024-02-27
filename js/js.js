@@ -34,10 +34,14 @@ function pressTheKey(keyNumber, velocity) {
         let color = (1 - velocity / 127) * 255;
         keyUI.style.backgroundColor = `rgb(255,${color},${color})`;
         sound.playNote(keyNumber);
+        showFrequency(sound.noteToFrequency(keyNumber));
     } else {
         if (keyUI.className == "black-key") keyUI.style.backgroundColor = "black";
         else keyUI.style.backgroundColor = "white";
         sound.stopNote(keyNumber);
+        showFrequency(null);
+
+        sh
     }
 }
 
@@ -64,4 +68,14 @@ function listenKeyboardClick() {
             pressTheKey(note, 0);
         }
     });
+}
+
+
+function showFrequency(frequency) {
+    let frequencyUI = document.querySelector("#frequency");
+    if (!frequency) {
+        frequencyUI.innerHTML = "";
+        return
+    }
+    frequencyUI.innerHTML = frequency + "hz"
 }
