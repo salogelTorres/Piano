@@ -1,9 +1,12 @@
 export class Synth {
   #context = null;
   #oscillators = []
+  #gain = null;
 
   constructor() {
     (this.#context = new AudioContext()), (this.#oscillators = {});
+    this.#gain = this.#context.createGain();
+    this.#gain.gain.value = 0.1;
   }
 
   #midiNoteToFrequency(note) {
@@ -14,7 +17,8 @@ export class Synth {
     let frequency = this.#midiNoteToFrequency(note);
     this.#oscillators[frequency] = this.#context.createOscillator();
     this.#oscillators[frequency].frequency.value = frequency;
-    this.#oscillators[frequency].connect(this.#context.destination);
+    this.#gain.connect(this.#context.destination)
+    this.#oscillators[frequency].connect(this.#gain);
     this.#oscillators[frequency].start(this.#context.currentTime);
   }
 
